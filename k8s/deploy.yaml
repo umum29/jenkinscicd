@@ -1,0 +1,30 @@
+apiVersion: extensions/v1beta1
+kind: Deployment
+metadata:
+  name: ithome
+spec:
+  replicas: 1
+  template:
+    metadata:
+      name: ithome
+      labels:
+        app: ithome
+        env: current
+    spec:
+      containers:
+      - name: ithome
+        image: gcr.io/ithome-image
+        resources:
+          limits:
+            memory: 0
+            cpu: 0
+        imagePullPolicy: Always
+        env:
+        - name: SERVER_PORT
+          value: "80"
+        - name: DB_SERVER
+          value: "mongodb-svc"
+        ports:
+        - containerPort: 80
+          protocol: TCP
+      restartPolicy: Always
