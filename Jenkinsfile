@@ -9,7 +9,12 @@ node{
     def proNamespace = 'production'
 
     checkout scm
-
+    
+    stage('Initialize'){
+       def dockerHome = tool 'myDocker'
+       env.PATH = "${dockerHome}/bin:${env.PATH}"
+    }
+    
     stage '建立映像檔'
     sh("docker build -t ${imgWithTag} .")
 
